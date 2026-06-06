@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改造档案列表</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link active">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>改造档案管理</h2>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>档案名称</th>
+                        <th>档案类型</th>
+                        <th>归档日期</th>
+                        <th>上传人</th>
+                        <th>文件大小</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="a : ${archives}">
+                        <td th:text="${a.archiveName}"></td>
+                        <td>
+                            <span class="status-badge status-info" th:text="${a.archiveType}"></span>
+                        </td>
+                        <td th:text="${a.archiveDate}"></td>
+                        <td th:text="${a.uploader}"></td>
+                        <td th:text="${a.fileSize != null ? T(java.lang.String).format('%.1f KB', ${a.fileSize} / 1024.0) : '-'}"></td>
+                        <td class="action-cell">
+                            <a th:href="@{/archives/{id}(id=${a.id})}" class="btn btn-sm btn-info">查看</a>
+                            <form th:action="@{/archives/{id}/delete(id=${a.id})}" method="post" style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('确认删除？')">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

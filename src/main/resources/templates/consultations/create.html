@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增征询</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link active">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>新增征询记录</h2>
+            <a th:href="@{/consultations}" class="btn btn-secondary">返回列表</a>
+        </div>
+        <div class="form-card">
+            <form th:action="@{/consultations}" th:object="${consultation}" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="projectId">所属项目 <span class="required">*</span></label>
+                        <select id="projectId" th:field="*{projectId}" class="form-control" required>
+                            <option value="">请选择项目</option>
+                            <option th:each="p : ${projects}" th:value="${p.id}" th:text="${p.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="residentName">住户姓名 <span class="required">*</span></label>
+                        <input type="text" id="residentName" th:field="*{residentName}" required class="form-control" placeholder="请输入住户姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="residentPhone">联系电话 <span class="required">*</span></label>
+                        <input type="text" id="residentPhone" th:field="*{residentPhone}" required class="form-control" placeholder="请输入联系电话">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">住址 <span class="required">*</span></label>
+                        <input type="text" id="address" th:field="*{address}" required class="form-control" placeholder="请输入住址">
+                    </div>
+                    <div class="form-group">
+                        <label for="opinion">征询意见 <span class="required">*</span></label>
+                        <select id="opinion" th:field="*{opinion}" class="form-control" required>
+                            <option value="同意">同意</option>
+                            <option value="反对">反对</option>
+                            <option value="弃权">弃权</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">状态 <span class="required">*</span></label>
+                        <select id="status" th:field="*{status}" class="form-control">
+                            <option value="待征询">待征询</option>
+                            <option value="已征询">已征询</option>
+                            <option value="已完成">已完成</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="consultationDate">征询日期</label>
+                        <input type="date" id="consultationDate" th:field="*{consultationDate}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="collector">采集人</label>
+                        <input type="text" id="collector" th:field="*{collector}" class="form-control" placeholder="请输入采集人">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="remark">备注</label>
+                        <textarea id="remark" th:field="*{remark}" class="form-control" rows="3" placeholder="请输入备注"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                    <a th:href="@{/consultations}" class="btn btn-secondary">取消</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

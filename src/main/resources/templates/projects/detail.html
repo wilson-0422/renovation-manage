@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目详情</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link active">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2 th:text="${project.name}">项目详情</h2>
+            <div>
+                <a th:href="@{/projects/{id}/edit(id=${project.id})}" class="btn btn-warning">编辑</a>
+                <a th:href="@{/projects}" class="btn btn-secondary">返回列表</a>
+            </div>
+        </div>
+        <div class="detail-card">
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <label>项目名称</label>
+                    <span th:text="${project.name}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>项目地址</label>
+                    <span th:text="${project.address}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>项目预算(万元)</label>
+                    <span th:text="${project.budget}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>项目状态</label>
+                    <span class="status-badge" th:classappend="${project.status == '已完成'} ? 'status-success' : (${project.status == '进行中'} ? 'status-warning' : 'status-info')" th:text="${project.status}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>总户数</label>
+                    <span th:text="${project.totalHouseholds}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>负责人</label>
+                    <span th:text="${project.responsiblePerson}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>联系电话</label>
+                    <span th:text="${project.contactPhone}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>开始日期</label>
+                    <span th:text="${project.startDate}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>结束日期</label>
+                    <span th:text="${project.endDate}"></span>
+                </div>
+                <div class="detail-item full-width">
+                    <label>项目描述</label>
+                    <span th:text="${project.description}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="related-section">
+            <h3>快捷操作</h3>
+            <div class="action-links">
+                <a th:href="@{/consultations/create(projectId=${project.id})}" class="btn btn-info">添加征询</a>
+                <a th:href="@{/construction/create(projectId=${project.id})}" class="btn btn-info">添加施工节点</a>
+                <a th:href="@{/materials/create(projectId=${project.id})}" class="btn btn-info">添加材料验收</a>
+                <a th:href="@{/maintenance/create(projectId=${project.id})}" class="btn btn-info">添加维保回访</a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p>
+    </footer>
+</body>
+</html>

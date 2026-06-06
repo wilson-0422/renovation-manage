@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>维保回访列表</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link active">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>维保回访管理</h2>
+            <a th:href="@{/maintenance/create}" class="btn btn-primary">新增回访</a>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>回访类型</th>
+                        <th>被访人</th>
+                        <th>联系电话</th>
+                        <th>回访结果</th>
+                        <th>回访日期</th>
+                        <th>下次回访</th>
+                        <th>回访人</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="v : ${visits}">
+                        <td th:text="${v.visitType}"></td>
+                        <td th:text="${v.visitorName}"></td>
+                        <td th:text="${v.visitorPhone}"></td>
+                        <td>
+                            <span class="status-badge" th:classappend="${v.visitResult == '满意'} ? 'status-success' : (${v.visitResult == '不满意'} ? 'status-danger' : 'status-warning')" th:text="${v.visitResult}"></span>
+                        </td>
+                        <td th:text="${v.visitDate}"></td>
+                        <td th:text="${v.nextVisitDate}"></td>
+                        <td th:text="${v.visitor}"></td>
+                        <td class="action-cell">
+                            <a th:href="@{/maintenance/{id}(id=${v.id})}" class="btn btn-sm btn-info">查看</a>
+                            <form th:action="@{/maintenance/{id}/delete(id=${v.id})}" method="post" style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('确认删除？')">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

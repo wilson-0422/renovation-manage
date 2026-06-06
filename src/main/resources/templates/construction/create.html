@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增施工节点</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link active">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>新增施工节点</h2>
+            <a th:href="@{/construction}" class="btn btn-secondary">返回列表</a>
+        </div>
+        <div class="form-card">
+            <form th:action="@{/construction}" th:object="${node}" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="projectId">所属项目 <span class="required">*</span></label>
+                        <select id="projectId" th:field="*{projectId}" class="form-control" required>
+                            <option value="">请选择项目</option>
+                            <option th:each="p : ${projects}" th:value="${p.id}" th:text="${p.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nodeName">节点名称 <span class="required">*</span></label>
+                        <input type="text" id="nodeName" th:field="*{nodeName}" required class="form-control" placeholder="请输入节点名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="nodeType">节点类型 <span class="required">*</span></label>
+                        <select id="nodeType" th:field="*{nodeType}" class="form-control">
+                            <option value="基础工程">基础工程</option>
+                            <option value="主体工程">主体工程</option>
+                            <option value="装饰工程">装饰工程</option>
+                            <option value="安装工程">安装工程</option>
+                            <option value="验收阶段">验收阶段</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">状态 <span class="required">*</span></label>
+                        <select id="status" th:field="*{status}" class="form-control">
+                            <option value="未开始">未开始</option>
+                            <option value="进行中">进行中</option>
+                            <option value="已暂停">已暂停</option>
+                            <option value="已完成">已完成</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="plannedStart">计划开始日期</label>
+                        <input type="date" id="plannedStart" th:field="*{plannedStart}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="plannedEnd">计划结束日期</label>
+                        <input type="date" id="plannedEnd" th:field="*{plannedEnd}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="actualStart">实际开始日期</label>
+                        <input type="date" id="actualStart" th:field="*{actualStart}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="actualEnd">实际结束日期</label>
+                        <input type="date" id="actualEnd" th:field="*{actualEnd}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="supervisor">监理人</label>
+                        <input type="text" id="supervisor" th:field="*{supervisor}" class="form-control" placeholder="请输入监理人">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="description">描述</label>
+                        <textarea id="description" th:field="*{description}" class="form-control" rows="3" placeholder="请输入节点描述"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                    <a th:href="@{/construction}" class="btn btn-secondary">取消</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

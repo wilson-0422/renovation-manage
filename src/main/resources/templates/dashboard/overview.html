@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统仪表盘</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link active">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>系统仪表盘</h2>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon project-icon">📋</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.totalProjects}">0</span>
+                    <span class="stat-label">项目总数</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon ongoing-icon">🔨</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.ongoingProjects}">0</span>
+                    <span class="stat-label">进行中项目</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon completed-icon">✅</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.completedProjects}">0</span>
+                    <span class="stat-label">已完成项目</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon consultation-icon">🗣️</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.totalConsultations}">0</span>
+                    <span class="stat-label">征询记录</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon construction-icon">🏗️</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.totalConstructionNodes}">0</span>
+                    <span class="stat-label">施工节点</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon material-icon">📦</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.totalMaterials}">0</span>
+                    <span class="stat-label">材料验收</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon archive-icon">📁</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.totalArchives}">0</span>
+                    <span class="stat-label">改造档案</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon maintenance-icon">🔧</div>
+                <div class="stat-info">
+                    <span class="stat-value" th:text="${stats.totalMaintenanceVisits}">0</span>
+                    <span class="stat-label">维保回访</span>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-section">
+            <h3>项目列表</h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>项目名称</th>
+                            <th>地址</th>
+                            <th>预算(万元)</th>
+                            <th>状态</th>
+                            <th>负责人</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="project : ${projects}">
+                            <td th:text="${project.name}"></td>
+                            <td th:text="${project.address}"></td>
+                            <td th:text="${project.budget}"></td>
+                            <td>
+                                <span class="status-badge" th:classappend="${project.status == '已完成'} ? 'status-success' : (${project.status == '进行中'} ? 'status-warning' : 'status-info')" th:text="${project.status}"></span>
+                            </td>
+                            <td th:text="${project.responsiblePerson}"></td>
+                            <td><a th:href="@{/projects/{id}(id=${project.id})}" class="btn btn-sm btn-info">查看</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

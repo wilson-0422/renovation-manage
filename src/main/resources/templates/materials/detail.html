@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>材料验收详情</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link active">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>材料验收详情</h2>
+            <a th:href="@{/materials}" class="btn btn-secondary">返回列表</a>
+        </div>
+        <div class="detail-card">
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <label>所属项目</label>
+                    <span th:text="${project.name}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>材料名称</label>
+                    <span th:text="${material.materialName}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>规格</label>
+                    <span th:text="${material.specification}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>品牌</label>
+                    <span th:text="${material.brand}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>数量</label>
+                    <span th:text="${material.quantity}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>单价(元)</label>
+                    <span th:text="${material.unitPrice}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>验收结果</label>
+                    <span class="status-badge" th:classappend="${material.acceptanceResult == '合格'} ? 'status-success' : 'status-danger'" th:text="${material.acceptanceResult}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>验收日期</label>
+                    <span th:text="${material.acceptanceDate}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>检验人</label>
+                    <span th:text="${material.inspector}"></span>
+                </div>
+                <div class="detail-item full-width">
+                    <label>备注</label>
+                    <span th:text="${material.remark}"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

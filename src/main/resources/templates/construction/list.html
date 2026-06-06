@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>施工节点列表</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link active">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>施工节点管理</h2>
+            <a th:href="@{/construction/create}" class="btn btn-primary">新增节点</a>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>节点名称</th>
+                        <th>节点类型</th>
+                        <th>状态</th>
+                        <th>计划开始</th>
+                        <th>计划结束</th>
+                        <th>实际开始</th>
+                        <th>实际结束</th>
+                        <th>监理人</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="node : ${nodes}">
+                        <td th:text="${node.nodeName}"></td>
+                        <td th:text="${node.nodeType}"></td>
+                        <td>
+                            <span class="status-badge" th:classappend="${node.status == '已完成'} ? 'status-success' : (${node.status == '进行中'} ? 'status-warning' : 'status-info')" th:text="${node.status}"></span>
+                        </td>
+                        <td th:text="${node.plannedStart}"></td>
+                        <td th:text="${node.plannedEnd}"></td>
+                        <td th:text="${node.actualStart}"></td>
+                        <td th:text="${node.actualEnd}"></td>
+                        <td th:text="${node.supervisor}"></td>
+                        <td class="action-cell">
+                            <a th:href="@{/construction/{id}(id=${node.id})}" class="btn btn-sm btn-info">查看</a>
+                            <form th:action="@{/construction/{id}/delete(id=${node.id})}" method="post" style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('确认删除？')">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

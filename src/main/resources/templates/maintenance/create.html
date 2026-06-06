@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增维保回访</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link active">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>新增维保回访</h2>
+            <a th:href="@{/maintenance}" class="btn btn-secondary">返回列表</a>
+        </div>
+        <div class="form-card">
+            <form th:action="@{/maintenance}" th:object="${visit}" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="projectId">所属项目 <span class="required">*</span></label>
+                        <select id="projectId" th:field="*{projectId}" class="form-control" required>
+                            <option value="">请选择项目</option>
+                            <option th:each="p : ${projects}" th:value="${p.id}" th:text="${p.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="visitType">回访类型 <span class="required">*</span></label>
+                        <select id="visitType" th:field="*{visitType}" class="form-control">
+                            <option value="质保回访">质保回访</option>
+                            <option value="维修回访">维修回访</option>
+                            <option value="满意度调查">满意度调查</option>
+                            <option value="投诉处理">投诉处理</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="visitorName">被访人姓名 <span class="required">*</span></label>
+                        <input type="text" id="visitorName" th:field="*{visitorName}" required class="form-control" placeholder="请输入被访人姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="visitorPhone">联系电话</label>
+                        <input type="text" id="visitorPhone" th:field="*{visitorPhone}" class="form-control" placeholder="请输入联系电话">
+                    </div>
+                    <div class="form-group">
+                        <label for="visitResult">回访结果 <span class="required">*</span></label>
+                        <select id="visitResult" th:field="*{visitResult}" class="form-control">
+                            <option value="满意">满意</option>
+                            <option value="基本满意">基本满意</option>
+                            <option value="不满意">不满意</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="visitDate">回访日期</label>
+                        <input type="date" id="visitDate" th:field="*{visitDate}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="nextVisitDate">下次回访日期</label>
+                        <input type="date" id="nextVisitDate" th:field="*{nextVisitDate}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="visitor">回访人</label>
+                        <input type="text" id="visitor" th:field="*{visitor}" class="form-control" placeholder="请输入回访人">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="feedback">反馈内容</label>
+                        <textarea id="feedback" th:field="*{feedback}" class="form-control" rows="4" placeholder="请输入反馈内容"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="remark">备注</label>
+                        <textarea id="remark" th:field="*{remark}" class="form-control" rows="2" placeholder="请输入备注"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                    <a th:href="@{/maintenance}" class="btn btn-secondary">取消</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

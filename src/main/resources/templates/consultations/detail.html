@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>征询详情</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link active">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>征询详情</h2>
+            <a th:href="@{/consultations}" class="btn btn-secondary">返回列表</a>
+        </div>
+        <div class="detail-card">
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <label>所属项目</label>
+                    <span th:text="${project.name}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>住户姓名</label>
+                    <span th:text="${consultation.residentName}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>联系电话</label>
+                    <span th:text="${consultation.residentPhone}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>住址</label>
+                    <span th:text="${consultation.address}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>征询意见</label>
+                    <span class="status-badge" th:classappend="${consultation.opinion == '同意'} ? 'status-success' : (${consultation.opinion == '反对'} ? 'status-danger' : 'status-warning')" th:text="${consultation.opinion}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>状态</label>
+                    <span class="status-badge" th:classappend="${consultation.status == '已完成'} ? 'status-success' : 'status-info'" th:text="${consultation.status}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>征询日期</label>
+                    <span th:text="${consultation.consultationDate}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>采集人</label>
+                    <span th:text="${consultation.collector}"></span>
+                </div>
+                <div class="detail-item full-width">
+                    <label>备注</label>
+                    <span th:text="${consultation.remark}"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>

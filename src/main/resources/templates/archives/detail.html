@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>档案详情</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><a th:href="@{/dashboard}">老旧小区改造管控系统</a></div>
+        <div class="navbar-menu">
+            <a th:href="@{/dashboard}" class="nav-link">仪表盘</a>
+            <a th:href="@{/projects}" class="nav-link">改造立项</a>
+            <a th:href="@{/consultations}" class="nav-link">住户征询</a>
+            <a th:href="@{/construction}" class="nav-link">施工节点</a>
+            <a th:href="@{/materials}" class="nav-link">材料验收</a>
+            <a th:href="@{/archives}" class="nav-link active">改造档案</a>
+            <a th:href="@{/maintenance}" class="nav-link">维保回访</a>
+        </div>
+    </nav>
+    <main class="main-content">
+        <div class="page-header">
+            <h2>档案详情</h2>
+            <a th:href="@{/archives}" class="btn btn-secondary">返回列表</a>
+        </div>
+        <div class="detail-card">
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <label>所属项目</label>
+                    <span th:text="${project.name}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>档案名称</label>
+                    <span th:text="${archive.archiveName}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>档案类型</label>
+                    <span class="status-badge status-info" th:text="${archive.archiveType}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>文件路径</label>
+                    <span th:text="${archive.filePath}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>归档日期</label>
+                    <span th:text="${archive.archiveDate}"></span>
+                </div>
+                <div class="detail-item">
+                    <label>上传人</label>
+                    <span th:text="${archive.uploader}"></span>
+                </div>
+                <div class="detail-item full-width">
+                    <label>描述</label>
+                    <span th:text="${archive.description}"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2026 老旧小区改造全流程管控系统 版权所有</p></footer>
+</body>
+</html>
